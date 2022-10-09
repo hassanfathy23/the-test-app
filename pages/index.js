@@ -2,11 +2,14 @@
 import { fetchNames } from '../lib/fetch-names'
 
 
-export default function Home({names}) {
+export default function Home() {
+  const names = [
+    "hassan", "mohamed"
+  ]
   return (
     <div>
       {names && names.length > 0 ? names.map(name => (
-        <p key={name._id}>{name.name}</p>
+        <p key={name}>{name}</p>
       )) : <p>problem occurred</p> }
     </div>
   )
