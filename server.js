@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/names", namesRoute);
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Origin", ["http://localhost:3000", "https://tha-test-app.herokuapp.com/"]);
   res.setHeader(
     "Access-Control-Allow-Methods",
     "OPTIONS, GET, POST, PUT, DELETE, PATCH"
