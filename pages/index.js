@@ -3,7 +3,6 @@ import { fetchNames } from '../lib/fetch-names'
 
 
 export default function Home({names}) {
-  console.log(names)
   return (
     <div>
       {names && names.length > 0 ? names.map(name=> (
