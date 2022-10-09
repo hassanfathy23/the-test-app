@@ -2,24 +2,29 @@
 import { fetchNames } from '../lib/fetch-names'
 
 
-export default function Home() {
+export default function Home({names}) {
+  console.log(names)
   return (
     <div>
-      hassan
+      {names && names.length > 0 ? names.map(name=> (
+        <p key={name._id}>
+          {name.name}
+        </p>
+      )) : <p>no names found</p>}
     </div>
   )
 }
 
 export async function getServerSideProps() {
-  const names = await fetchNames()
+  const data = await fetchNames()
 
-  if(!names) {
+  if(!data) {
     throw new Error("can't fetch names")
   }
 
   return {
     props: {
-      names
+      names: data.names
     }
   }
 }
