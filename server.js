@@ -47,6 +47,11 @@ connectToDb().catch((err) => {
 server
   .prepare()
   .then(() => {
+    app.get('/', (req, res) => {
+        const actualPage = '/'
+        server.render(req, res, actualPage)
+    })
+
     app.get("*", (req, res) => {
       return handle(req, res);
     });
