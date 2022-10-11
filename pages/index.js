@@ -1,3 +1,4 @@
+import { MongoClient } from 'mongodb'
 
 import { fetchNames } from '../lib/fetch-names'
 
@@ -5,25 +6,26 @@ import { fetchNames } from '../lib/fetch-names'
 export default function Home({names}) {
   return (
     <div>
-      {names && names.length > 0 ? names.map(name=> (
-        <p key={name._id}>
-          {name.name}
-        </p>
-      )) : <p>no names found</p>}
+      {names.map(name => (
+        <p key={name._id}>{name.name}</p>
+      ))}
+      {/* hello, world */}
     </div>
   )
 }
 
 export async function getServerSideProps() {
-  const data = await fetchNames()
+  // const data = await fetchNames()
 
-  if(!data) {
-    throw new Error("can't fetch names")
-  }
+  const client = await MongoClient.connect(process.env.MONGO_URL)
+  const db = client.db()
+  const names = await db.collection("names").find({}).toArray();
+  // console.log(JSON.parse(JSON.stringify(names)))
+  // console.log(names)
 
   return {
     props: {
-      names: data.names
+    names: JSON.parse(JSON.stringify(names))
     }
   }
 }
